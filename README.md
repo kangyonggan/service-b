@@ -27,12 +27,12 @@ docker images kyg/service-b-docker
 ## 部署
 ```
 kubectl apply -f service-b.yaml
+kubectl patch svc service-b -p '{"spec": {"type": "LoadBalancer"}}'
 ```
 
 ## 入口网关
 ```
 kubectl apply -f service-b-gateway.yaml
-kubectl patch svc service-b -p '{"spec": {"type": "LoadBalancer"}}'
 ```
 
 ## 访问
