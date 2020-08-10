@@ -10,12 +10,12 @@
 
 ## 打包
 ```
+cd service-b/
 mvn clean package
 ```
 
 ## 构建镜像
 ```
-cd service-b/
 docker build -t kyg/service-b-docker .
 ```
 
