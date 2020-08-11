@@ -24,18 +24,37 @@ docker build -t kyg/service-b-docker .
 docker images kyg/service-b-docker
 ```
 
-## 部署
+## 部署服务（master节点）
 ```
-kubectl apply -f service-b.yaml
-kubectl patch svc service-b -p '{"spec": {"type": "LoadBalancer"}}'
+kubectl apply -f service-b-master.yaml
 ```
 
-## 入口网关
+## 部署服务（node节点）
+```
+kubectl apply -f service-b-1.yaml
+```
+
+## 暴露服务（master节点）
+```
+kubectl get svc
+kubectl edit service service-b
+
+spec:
+  externalIPs:
+  - 192.168.0.5
+  - 172.190.105.90
+```
+
+- 192.168.0.5（内网IP）
+- 172.190.105.90（外网IP）
+
+## 入口网关（master节点）
 ```
 kubectl apply -f service-b-gateway.yaml
 ```
 
 ## 访问
 ```
-curl -d "username=admin&password=admin" http://localhost:8092/checkUser
+curl -d "username=admin&password=admin" http://192.168.0.5:8092/checkUser
+curl -d "username=admin&password=admin" http://172.190.105.90:8092/checkUser
 ```

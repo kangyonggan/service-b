@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-b-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: service-b
+  template:
+    metadata:
+      labels:
+        name: service-b
+    spec:
+      containers:
+        - name: service-b
+          image: kyg/service-b-docker
+          imagePullPolicy: IfNotPresent #Always
+          ports:
+            - containerPort: 8092
+
